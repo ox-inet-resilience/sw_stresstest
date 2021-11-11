@@ -547,7 +547,7 @@ class Model:
         # read from data files
         if hasattr(self, "bank_balancesheets"):
             return
-        # Taken from https://www.eba.europa.eu/risk-analysis-and-data/eu-wide-stress-testing/2016/results
+        # Taken from https://www.eba.europa.eu/risk-analysis-and-data/eu-wide-stress-testing/2016
         # https://resilience.zulipchat.com/#narrow/stream/110619-data-description/subject/words.201/near/121346521
         if DATA_YEAR == 2017:
             bs_file = SCRIPT_DIR + "/data/EBA_2018.csv"
