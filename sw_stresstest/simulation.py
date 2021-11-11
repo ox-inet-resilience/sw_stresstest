@@ -71,7 +71,7 @@ class FoundationSimulation(ModelWithRunner):
         np.random.seed(1337)
         super().__init__()
 
-    def set_cons(self, rwa=True, lev=True, lcr=True):
+    def set_constraints(self, rwa=True, lev=True, lcr=True):
         # IMPORTANT: this is to ensure the network stays fresh for each new session
         self.reset_networks()
 
@@ -272,7 +272,7 @@ class FoundationSimulation(ModelWithRunner):
         info(sname)
 
         self.parameters.MARGIN_CALL_ON = True
-        self.set_cons()
+        self.set_constraints()
 
         def fn(label, resolution, do_multiply, constraint_type, multiplication):
             self.parameters.HEDGEFUNDS_ON = "HF" in label
@@ -320,7 +320,7 @@ class FoundationSimulation(ModelWithRunner):
         sname = "FF11" + name_ext
         info(sname)
 
-        self.set_cons()
+        self.set_constraints()
 
         self.parameters.ASSET_MANAGER_ON = True
         self.parameters.HEDGEFUNDS_ON = True
@@ -679,7 +679,7 @@ class FoundationSimulation(ModelWithRunner):
             0.88, 0.13, "Leverage buffer (RW capital ratio + LCR off)", rotation=270
         )
         # RW buffer
-        self.set_cons(1, 0, 0)
+        self.set_constraints(1, 0, 0)
         ratio = "RWA"
 
         def fn(label, vary_shock):
@@ -708,7 +708,7 @@ class FoundationSimulation(ModelWithRunner):
         )
 
         # leverage buffer
-        self.set_cons(0, 1, 0)
+        self.set_constraints(0, 1, 0)
         ratio = "leverage"
 
         self._modified_common_procedure_FF3(
@@ -736,7 +736,7 @@ class FoundationSimulation(ModelWithRunner):
                 rotation=270,
             )
 
-        self.set_cons()
+        self.set_constraints()
 
         def fn(label, vary_shock):
             def _fn(x):
@@ -767,7 +767,7 @@ class FoundationSimulation(ModelWithRunner):
     def run_FF12c(self, name_ext="", resolution=True, rwa_y=1):
         sname = "FF12c" + name_ext
         info(sname)
-        self.set_cons()
+        self.set_constraints()
         xs = usability * 100
         ys = price_impacts * 100
 
@@ -812,9 +812,9 @@ class FoundationSimulation(ModelWithRunner):
 
         # RW buffer
         if all_constraints:
-            self.set_cons()
+            self.set_constraints()
         else:
-            self.set_cons(1, 0, 0)
+            self.set_constraints(1, 0, 0)
         ratio = "RWA"
 
         multiplier_map = {"2x": 2, "half": 0.5, "3x": 3, "4x": 4, "Basel": 1}
@@ -854,9 +854,9 @@ class FoundationSimulation(ModelWithRunner):
 
         # leverage buffer
         if all_constraints:
-            self.set_cons()
+            self.set_constraints()
         else:
-            self.set_cons(0, 1, 0)
+            self.set_constraints(0, 1, 0)
         ratio = "leverage"
         self.common_procedure_FF3(
             sname,
@@ -885,11 +885,11 @@ class FoundationSimulation(ModelWithRunner):
         sname = "FF15" + name_ext
         info(sname)
         if ratio == "RWA":
-            self.set_cons(1, 0, 0)
+            self.set_constraints(1, 0, 0)
         elif ratio == "leverage":
-            self.set_cons(0, 1, 0)
+            self.set_constraints(0, 1, 0)
         else:  # all
-            self.set_cons()
+            self.set_constraints()
 
         def fn(label, resolution):
             target_offset = eval(label[:-1]) / 100
@@ -938,9 +938,9 @@ class FoundationSimulation(ModelWithRunner):
         sname = "FF9" + name_ext
         info(sname)
         if constraints is None:
-            self.set_cons(1, 1, 1)
+            self.set_constraints(1, 1, 1)
         else:
-            self.set_cons(*constraints)
+            self.set_constraints(*constraints)
 
         labels = ("System-wide\nstress test\noutcome",)
 
