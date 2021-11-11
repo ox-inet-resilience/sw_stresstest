@@ -1,5 +1,6 @@
-import random
 import csv
+import random
+import os
 
 import numpy as np
 
@@ -22,6 +23,8 @@ from .network import generate_montagna_l1_network, generate_montagna_l3_network
 
 random.seed(1337)
 np.random.seed(1337)
+
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 AssetType = Parameters.AssetType
 
@@ -132,6 +135,7 @@ class Model:
         # We don't exclude banks when using public data, because the data has
         # no nan's.
         self.banned_banks = []
+        self.parameters = Parameters
 
     def get_time(self):
         return self.simulation.get_time()
@@ -187,10 +191,9 @@ class Model:
     def setup_banks_balance_sheet(self):
         self.setup_banks_balance_sheet_with_public_data()
 
-    def initialise(self, parameters=Parameters):
+    def initialise(self):
         """Initialises a particular scenario, with NBANKS banks, NBANKS Hedgefunds, and one AssetMarket
         """
-        self.parameters = parameters
         self.simulation = Simulation()
         self.allAgents = []
         self.assetMarket = AssetMarket(self)
@@ -547,11 +550,11 @@ class Model:
         # Taken from https://www.eba.europa.eu/risk-analysis-and-data/eu-wide-stress-testing/2016/results
         # https://resilience.zulipchat.com/#narrow/stream/110619-data-description/subject/words.201/near/121346521
         if DATA_YEAR == 2017:
-            bs_file = "data/EBA_2018.csv"
-            shock_file = "data/EBA_2018_shocks.csv"
+            bs_file = SCRIPT_DIR + "/data/EBA_2018.csv"
+            shock_file = SCRIPT_DIR + "/data/EBA_2018_shocks.csv"
         else:
-            bs_file = "data/EBA_2016.csv"
-            shock_file = "data/EBA_2016_shocks.csv"
+            bs_file = SCRIPT_DIR + "/data/EBA_2016.csv"
+            shock_file = SCRIPT_DIR + "/data/EBA_2016_shocks.csv"
         self.bank_balancesheets = read_csv(bs_file)
         # Prepare EBA shock to external asset scenario
         # first table page 3, sum corporates and retails,  defaulted A-IRB / (non-defaulted + defaulted)
