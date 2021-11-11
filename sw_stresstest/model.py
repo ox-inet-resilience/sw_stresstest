@@ -811,9 +811,7 @@ class Model:
     def add_deposit(self, bank, principal):
         bank.add(Deposit(None, bank, principal))
 
-    def setup_banks_interbank_network_from_loan_class(self, loan_class):
-        # We parameterize this function with a loan class because the loan
-        # class (BailinLoan) in the bailin model is different.
+    def setup_banks_interbank_network(self):
         # Generate Montagna-Kok 2016 interbank network
         if self.interbank_matrix is None:
             _seed = int(random.random() * 1000)
@@ -837,14 +835,9 @@ class Model:
             b = self.banks[i]
             w = self.interbank_liability_remainder[i]
             if w > 0:
-                b.add(loan_class(None, b, w))
+                b.add(Loan(None, b, w))
             elif w < 0:
                 raise Exception(f"{b.get_name()}: w ({w}) must not be negative")
-
-    def setup_banks_interbank_network(self):
-        # This method is overridden in the bailin model to instead use
-        # BailinLoan.
-        self.setup_banks_interbank_network_from_loan_class(Loan)
 
     def setup_hedgefunds(self):
         hfs = []
