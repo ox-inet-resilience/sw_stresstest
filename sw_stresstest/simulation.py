@@ -24,7 +24,7 @@ from sw_stresstest.model_with_runner import (
 
 # OSIB_surcharges_2017 taken from https://www.eba.europa.eu/risk-analysis-and-data/other-systemically-important-institutions-o-siis-/2017
 from sw_stresstest.data.EU_OSIB_surcharges_2017 import OSIB_surcharges_2017
-from sw_stresstest.parameters import Parameters, GSIBs
+from sw_stresstest.parameters import GSIBs
 
 _cycler = setup_matplotlib()
 
@@ -32,10 +32,11 @@ _cycler = setup_matplotlib()
 # Note: if the length of price_impacts is changed, the variable `indices` in
 # run_FF11 is no longer accurate. It is hardcoded with the assumption that the
 # 0th element is 0% price impact, and the 5th element is the 5% price impact.
-price_impacts = np.linspace(0.0, 0.1, 11)
-shocks = np.linspace(0, 2, 11)
-usability = np.linspace(0, 1, 11)
-buffer_mul = np.linspace(0, 8, 11)
+NPOINTS = 11
+price_impacts = np.linspace(0.0, 0.1, NPOINTS)
+shocks = np.linspace(0, 2, NPOINTS)
+usability = np.linspace(0, 1, NPOINTS)
+buffer_mul = np.linspace(0, 8, NPOINTS)
 PI = 0.05
 NSIM = 10
 

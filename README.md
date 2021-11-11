@@ -24,4 +24,8 @@ Requires Python 3. It is recommended to run everything within a virtualenv.
 - Run the simulation with `python sw_stresstest/simulation.py`
 
 You can tweak the number of repetitions of the simulations by changing `NSIM`
-in the simulation.py file.
+in the simulation.py file. To speed up the simulation, you may decrease the
+value of `NPOINTS`. This represents the number of points in the x-axis in the
+simulation plots. Note: for now, changing `NPOINTS` will cause problem with
+running simulation FF11 because it is hardcoded to assume that the length in
+11. This will be fixed in the future version.
