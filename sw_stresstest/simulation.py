@@ -1016,7 +1016,9 @@ class FoundationSimulation(ModelWithRunner):
 
 if __name__ == "__main__":
     fs = FoundationSimulation()
-    fs.parallel = 1
+    # This is a flag on whether to parallelize the NSIMS simulations via Python
+    # multiprocessing.
+    fs.parallel = True
     fs.run_sim_groups(FF9_10=True)
     # fs.run_sim_groups(FF11=True)
     # fs.run_sim_groups(FF12_14_15=True)
