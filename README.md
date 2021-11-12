@@ -23,12 +23,17 @@ Requires Python 3. It is recommended to run everything within a virtualenv.
 - Install the dependencies with `pip install .`
 - Run the simulation with `python sw_stresstest/simulation.py`
 
-You can tweak the number of repetitions of the simulations by changing `NSIM`
-in the simulation.py file. To speed up the simulation, you may decrease the
-value of `NPOINTS`. This represents the number of points in the x-axis in the
-simulation plots. Note: for now, changing `NPOINTS` will cause problem with
-running simulation FF11 because it is hardcoded to assume that the length in
-11. This will be fixed in the future version.
+Remarks:
+- You can enable/disable parallelization (using Python's `multiprocessing`
+  library) by searching for `fs.parallel` in `simulation.py` and setting it to
+  `True`/`False`.
+- You can tweak the number of repetitions of the simulations by changing `NSIM`
+  in the simulation.py file.
+- To speed up the simulation, you may decrease the value of `NPOINTS`. This
+  represents the number of points in the x-axis in the simulation plots. Note:
+  for now, changing `NPOINTS` will cause problem with running simulation FF11
+  because it is hardcoded to assume that the length is 11. This will be fixed
+  in the future version.
 
 # Citing this project
 To cite the model and/or the Resilience library in your publication you can use the [CITATION.bib](https://github.com/ox-inet-resilience/sw_stresstest/blob/main/CITATION.bib).
