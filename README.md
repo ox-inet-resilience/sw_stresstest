@@ -29,3 +29,6 @@ value of `NPOINTS`. This represents the number of points in the x-axis in the
 simulation plots. Note: for now, changing `NPOINTS` will cause problem with
 running simulation FF11 because it is hardcoded to assume that the length in
 11. This will be fixed in the future version.
+
+# Citing this project
+To cite the model and/or the Resilience library in your publication you can use the [CITATION.bib](https://github.com/ox-inet-resilience/sw_stresstest/blob/main/CITATION.bib).
