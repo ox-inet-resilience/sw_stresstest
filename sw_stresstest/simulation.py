@@ -22,7 +22,8 @@ from sw_stresstest.model_with_runner import (
     mul_by_100,
 )
 
-# OSIB_surcharges_2017 taken from https://www.eba.europa.eu/risk-analysis-and-data/other-systemically-important-institutions-o-siis-/2017
+# OSIB_surcharges_2017 taken from
+# https://www.eba.europa.eu/risk-analysis-and-data/other-systemically-important-institutions-o-siis-/2017
 from sw_stresstest.data.EU_OSIB_surcharges_2017 import OSIB_surcharges_2017
 from sw_stresstest.parameters import GSIBs
 
@@ -232,9 +233,9 @@ class FoundationSimulation(ModelWithRunner):
 
         _parout = mp.Manager().dict()
 
-        def __fn(m, l):
-            _parout[(m, l)] = _bar(m, l)
-            print(m, l)
+        def __fn(m, _label):
+            _parout[(m, _label)] = _bar(m, _label)
+            print(m, _label)
 
         modes = (0, "2x lev", "2x rw")
         fig = plt.figure(figsize=figsize)
@@ -463,7 +464,7 @@ class FoundationSimulation(ModelWithRunner):
                 _a = list(np.argsort(-x, kind="stable"))
                 return [_a.index(i) for i in range(len(modes_c))]
 
-            diffs = np.array([get_diff_std(l)[0] for l in modes_c])
+            diffs = np.array([get_diff_std(_mode)[0] for _mode in modes_c])
             orders = np.array([_sort(x) for x in diffs.T]).T
             for i, label in enumerate(modes_c):
                 diff, diff_std = get_diff_std(label)
@@ -569,7 +570,9 @@ class FoundationSimulation(ModelWithRunner):
             )
             # Only used in FF14_bar
             if "FF14" in sname and "b" not in sname:
-                _r = (ratio_FF14 == "RWA") if ratio_FF14 else self.parameters.BANK_RWA_ON
+                _r = (
+                    (ratio_FF14 == "RWA") if ratio_FF14 else self.parameters.BANK_RWA_ON
+                )
                 self.outcome_FF14[resolution][label.split()[0], _r] = self.outcome
             ax.set_xlabel("Price impact (%)")
             if do_usability:
@@ -584,7 +587,7 @@ class FoundationSimulation(ModelWithRunner):
         def _do_one_sim(resolution):
             lines = [_f(i, resolution) for i in labels]
             print()
-            __out = [l[0] for l in lines]
+            __out = [line[0] for line in lines]
             if lines[0][1] is not None:  # EBA eose line
                 __out.append(lines[0][1])
             return __out
@@ -993,7 +996,11 @@ class FoundationSimulation(ModelWithRunner):
             lrs = [(1, 1), (2.5, 1)]
             for lev_y, rwa_y in lrs:
                 _n += 1
-                self.run_FF11(name_ext=f"_{_n}_({lev_y},{rwa_y})_liquidation_", rwa_y=rwa_y, lev_y=lev_y)
+                self.run_FF11(
+                    name_ext=f"_{_n}_({lev_y},{rwa_y})_liquidation_",
+                    rwa_y=rwa_y,
+                    lev_y=lev_y,
+                )
             print("Total elapsed time:", time.process_time())
             exit()
 
@@ -1013,6 +1020,7 @@ class FoundationSimulation(ModelWithRunner):
             # self.run_FF15(name_ext='_7', alter_lcr_only=True)
 
         print("Total elapsed time:", time.process_time())
+
 
 if __name__ == "__main__":
     fs = FoundationSimulation()

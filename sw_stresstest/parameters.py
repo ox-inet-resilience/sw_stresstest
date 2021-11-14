@@ -1,4 +1,9 @@
-from resilience.parameters import Parameters as ResilienceParameters, enum, isequal_float, eps
+from resilience.parameters import (  # noqa
+    Parameters as ResilienceParameters,
+    enum,
+    isequal_float,
+    eps,
+)
 
 DATA_YEAR = 2017
 # DATA_YEAR = 2015

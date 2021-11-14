@@ -192,8 +192,7 @@ class Model:
         self.setup_banks_balance_sheet_with_public_data()
 
     def initialise(self):
-        """Initialises a particular scenario, with NBANKS banks, NBANKS Hedgefunds, and one AssetMarket
-        """
+        """Initialises a particular scenario, with NBANKS banks, NBANKS Hedgefunds, and one AssetMarket"""
         self.simulation = Simulation()
         self.allAgents = []
         self.assetMarket = AssetMarket(self)
@@ -423,14 +422,14 @@ class Model:
 
     def initInterBankLoan(self, lender, borrower, principal):
         """
-         lender:
-            asset party
+        lender:
+           asset party
 
-         borrower:
-            liability party
+        borrower:
+           liability party
 
-         principal:
-            principal
+        principal:
+           principal
         """
         loan = Loan(lender, borrower, principal)
         lender.add(loan)
@@ -603,7 +602,9 @@ class Model:
             # equities -> 0
             # gov bonds -> 0.5 * (debt securities held)
             # corp bonds -> 0.5 * (debt securities held)
-            # othertradable -> (securitized loans, 4) + (other securitized assets, 7) + (equity and investment fund shares/units, 8)
+            # othertradable -> (securitized loans, 4) +
+            #                  (other securitized assets, 7) +
+            #                  (equity and investment fund shares/units, 8)
             # otherasset -> other assets, 9
             # 2017 Q4
             fhc_govbonds = 0.5 * 225100
@@ -842,14 +843,16 @@ class Model:
     def setup_hedgefunds(self):
         hfs = []
         # See http://sdw.ecb.europa.eu/servlet/desis?node=1000003524
-        # Discussion at https://resilience.zulipchat.com/#narrow/stream/src.2Fagents.2F/subject/HedgeFund/near/120017956
+        # Discussion at
+        # https://resilience.zulipchat.com/#narrow/stream/src.2Fagents.2F/subject/HedgeFund/near/120017956
         # https://resilience.zulipchat.com/#narrow/stream/src.2Fnetwork/topic/Initialise.20Hedge.20Funds
         # Assets:
         # cash -> deposits and loan claims
         # tradable assets -> (debt securities) + equity
         # tradableequities -> equity
         # gov bonds -> debt securities * fraction_govbonds (split in same way as other investment funds )
-        # corporate bonds -> debt securities * fraction_corpbonds (split in same way as other investment funds)
+        # corporate bonds -> debt securities * fraction_corpbonds (split in same way as
+        #                                                          other investment funds)
         # othertradable -> (investment fund shares) + (remaining assets and financial derivatives)
         # external -> 0
         # other asset -> (total asset) - (the rest of the assets)
@@ -953,8 +956,12 @@ class Model:
 
     def setup_asset_managers(self):
         # Initialise 5 representative asset managers
-        # Representative Bond Fund, Representative Equity Fund, Representative Mixed Fund, Representative Real Estate Fund, Representative Other Fund
-        # See https://resilience.zulipchat.com/#narrow/stream/src.2Fagents.2F/subject/AssetManager/near/120016466 for how to read the warehouse data
+        # Representative Bond Fund, Representative Equity Fund, Representative
+        # Mixed Fund, Representative Real Estate Fund, Representative Other
+        # Fund.
+        # See
+        # https://resilience.zulipchat.com/#narrow/stream/src.2Fagents.2F/subject/AssetManager/near/120016466
+        # for how to read the warehouse data
         # outstanding amounts instead of transactions
         # Asset:
         # cash -> deposits and loan claims
@@ -1274,11 +1281,13 @@ class Model:
         _N += self.parameters.N_GOV_BONDS
         for _i in range(1, self.parameters.N_CORP_BONDS + 1):
             self.assetMarket.total_quantities[_N + _i] += cb_arr[_i - 1]
-        # equities is numbered from N_GOV_BONDS + N_CORP_BONDS + 1 to N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + 1
+        # equities is numbered from N_GOV_BONDS + N_CORP_BONDS + 1
+        # to N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + 1
         _N += self.parameters.N_CORP_BONDS
         for _i in range(1, self.parameters.N_EQUITIES + 1):
             self.assetMarket.total_quantities[_N + _i] += eq_arr[_i - 1]
-        # othertradable is numbered from N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + 1 to N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + N_OTHERTRADABLES + 1
+        # othertradable is numbered from N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + 1
+        # to N_GOV_BONDS + N_CORP_BONDS + N_EQUITIES + N_OTHERTRADABLES + 1
         _N += self.parameters.N_EQUITIES
         for _i in range(1, self.parameters.N_OTHERTRADABLES + 1):
             self.assetMarket.total_quantities[_N + _i] += ot_arr[_i - 1]
