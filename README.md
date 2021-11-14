@@ -16,7 +16,7 @@ For a self-contained introduction to the model in fewer than 1k lines of code,
 see https://github.com/ox-inet-resilience/firesale_stresstest.  The
 `firesale_stresstest` repository implements all of its building block from
 scratch instead of using the Resilience library.  It reproduces the result of
-Cont-Schaanning 2017.
+[Cont-Schaanning 2017](https://dx.doi.org/10.2139/ssrn.2541114).
 
 ## Usage
 
