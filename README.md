@@ -1,5 +1,7 @@
 # System-Wide Stress Test Model
 
+[![Build](https://github.com/ox-inet-resilience/sw_stresstest/workflows/build/badge.svg)](https://github.com/ox-inet-resilience/sw_stresstest/actions/workflows/ci.yml)  
+
 This is the reference implementation of the system-wide stress test model, as
 described in [this
 paper](https://www.bankofengland.co.uk/working-paper/2020/foundations-of-system-wide-financial-stress-testing-with-heterogeneous-institutions).
