@@ -454,7 +454,12 @@ class Model:
                 principal
         """
         if principal > 0:
-            if lender is not None and borrower is not None:
+            if (
+                self.parameters.FUNDING_CONTAGION_INTERBANK
+                and lender is not None
+                and borrower is not None
+            ):
+                # If FUNDING_CONTAGION_INTERBANK is off, the repo is never linked.
                 try:
                     borrower.create_repos(lender, principal)
                 except Exception as e:
