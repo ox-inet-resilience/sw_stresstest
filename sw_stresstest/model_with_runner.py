@@ -184,6 +184,7 @@ class ModelWithRunner(Model):
         np.random.seed(1337)
         super().__init__()
         os.makedirs("plots", exist_ok=True)
+        self.parallel = True
 
     def set_params_postdefault_contagions_only(self):
         # post-default contagion only
